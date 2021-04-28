@@ -10,6 +10,7 @@ namespace Slider.Gameplay
         public ChangableValues changableValues;
 
         private Camera _cam;
+        private Vector3 viewportPoint;
 
         private void Awake() => _cam = Camera.main;
 
@@ -19,13 +20,14 @@ namespace Slider.Gameplay
 
         private void Move(Vector2 screenPosition)
         {
-            if(screenPosition.x >= Screen.width / 2)
-                transform.position += Vector3.right * changableValues.moveSpeed * Time.deltaTime;
-            else
-                transform.position += Vector3.left * changableValues.moveSpeed * Time.deltaTime;
+            Vector3 viewportPoint = _cam.WorldToViewportPoint(transform.position);
 
-            //FIXME:
-            Mathf.Clamp(transform.position.x, _cam.ScreenToWorldPoint(new Vector2(0f, 0f)).x, _cam.ScreenToWorldPoint(new Vector2(Screen.width, 0f)).x);
+            Debug.Log($"Viewport.x {viewportPoint.x}");
+
+            if(screenPosition.x > Screen.width / 2 && viewportPoint.x < 1f)
+                transform.position += Vector3.right * changableValues.moveSpeed * Time.deltaTime;
+            else if(screenPosition.x < Screen.width / 2 && viewportPoint.x > 0)
+                transform.position += Vector3.left * changableValues.moveSpeed * Time.deltaTime; 
         }
 
         private void OnTriggerEnter(Collider other) => GameOver();
@@ -33,7 +35,7 @@ namespace Slider.Gameplay
         //TODO:
         private void GameOver()
         {
-
+            Debug.Log("<color=yellow>[Player]</color> Its over, Anakin");
         }
 
         [System.Serializable]
