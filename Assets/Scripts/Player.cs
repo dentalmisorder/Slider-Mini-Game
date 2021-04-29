@@ -18,6 +18,8 @@ namespace Slider.Gameplay
 
         private void OnDisable() => InputManager.OnTouchHold -= Move;
 
+        private void Start() => transform.position = _cam.ViewportToWorldPoint(new Vector3(0.5f, settings.playerHeight, _cam.nearClipPlane + 1f));
+
         private void Move(Vector2 screenPosition)
         {
             viewportPoint = _cam.WorldToViewportPoint(transform.position);
@@ -42,6 +44,7 @@ namespace Slider.Gameplay
         {
             public float moveSpeed = 4f;
             [Range(0.05f, 0.4f)] public float moveBorder = 0.1f;
+            [Range(0.05f, 0.5f)] public float playerHeight = 0.1f;
         }
     }
 }

@@ -1,4 +1,28 @@
 {
+    "todohighlight.keywords": [
+        "DEBUG:",
+        "REVIEW:",
+        {
+            "text": "BUG:",
+            "color": "#000000",
+            "backgroundColor": "magenta",
+            "overviewRulerColor": "grey",
+            "isWholeLine": true,
+        },
+        {
+            "text": "NOTE:",
+            "border": "1px solid magenta",
+            "borderRadius": "2px", //NOTE: using borderRadius along with `border` or you will see nothing change
+            "backgroundColor": "#ffffff",
+            "isWholeLine": false,
+        },
+        {
+            "text": "TODO:",
+            "color": "#000000", 
+            "backgroundColor": "yellow",
+            //other styling properties goes here ... 
+        }
+    ],
     "editor.codeLens": false,
     "files.exclude":
     {

@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Slider.Base
 {
+    [DefaultExecutionOrder(-1)]
     public class InputManager : MonoBehaviour
     {
         #region static/private fields
