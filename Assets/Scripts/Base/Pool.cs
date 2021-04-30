@@ -17,5 +17,7 @@ namespace Slider.Base
         protected Queue<T> _pool = new Queue<T>();
 
         public abstract void Spawn(Vector3 spawnPos, Quaternion rotation, System.Action<T> OnPooled);
+
+        public abstract int GetPoolLength();
     }
 }

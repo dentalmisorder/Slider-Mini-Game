@@ -24,5 +24,7 @@ namespace Slider.Base
                 _pool.Enqueue(temp);
             }
         }
+
+        public override int GetPoolLength() => _pool.Count;
     }   
 }
