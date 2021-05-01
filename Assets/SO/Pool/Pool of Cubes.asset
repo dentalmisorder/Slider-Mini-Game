@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objToSpawn: {fileID: 425866068982192384, guid: 3863f3246c0d9c943a9f5733229b4292,
     type: 3}
-  maxAmountObjects: 5
+  maxAmountObjects: 25

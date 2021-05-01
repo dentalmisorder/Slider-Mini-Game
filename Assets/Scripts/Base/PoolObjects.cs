@@ -12,19 +12,27 @@ namespace Slider.Base
             {
                 GameObject temp = Instantiate(objToSpawn, spawnPos, rotation);
                 OnPooled?.Invoke(temp);
-                _pool.Enqueue(temp);
+                _pool?.Enqueue(temp);
             }
             else
             {
-                GameObject temp = _pool.Dequeue();
+                GameObject temp = _pool?.Dequeue();
                 temp.transform.position = spawnPos;
                 temp.transform.rotation = rotation;
                 temp.SetActive(true);
                 OnPooled?.Invoke(temp);
-                _pool.Enqueue(temp);
+                _pool?.Enqueue(temp);
             }
         }
 
         public override int GetPoolLength() => _pool.Count;
+
+        public override void ClearPool()
+        {
+            foreach (GameObject obj in _pool)
+                Destroy(obj.gameObject);
+
+            _pool.Clear();
+        }
     }   
 }

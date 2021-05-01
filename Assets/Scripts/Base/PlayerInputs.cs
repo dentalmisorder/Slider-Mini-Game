@@ -38,11 +38,11 @@ namespace Slider.Base
                 },
                 {
                     ""name"": ""HoldTouch"",
-                    ""type"": ""Value"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""3c4d4f3f-64e1-4d8a-a08d-e7ac88934cb6"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": ""Clamp(min=-1,max=1)"",
-                    ""interactions"": ""Press""
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": ""Hold""
                 }
             ],
             ""bindings"": [
@@ -52,7 +52,7 @@ namespace Slider.Base
                     ""path"": ""<Touchscreen>/press"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""MobileTouchcreen"",
                     ""action"": ""PressTouch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -63,7 +63,29 @@ namespace Slider.Base
                     ""path"": ""<Touchscreen>/position"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""MobileTouchcreen"",
+                    ""action"": ""PressTouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d6c6ef50-3ead-4bd9-b346-34cd642a7c02"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PC Standalone"",
+                    ""action"": ""PressTouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cb41a2cd-94dd-4c25-b271-73b5fab66bc5"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PC Standalone"",
                     ""action"": ""PressTouch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -74,7 +96,7 @@ namespace Slider.Base
                     ""path"": ""<Touchscreen>/press"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""MobileTouchcreen"",
                     ""action"": ""ReleaseTouch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -85,7 +107,29 @@ namespace Slider.Base
                     ""path"": ""<Touchscreen>/position"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""MobileTouchcreen"",
+                    ""action"": ""ReleaseTouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9405a4cf-b4f5-43ab-af21-10abd851b1fc"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PC Standalone"",
+                    ""action"": ""ReleaseTouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2f30dcd0-1db2-423f-aa55-c32375c618a2"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PC Standalone"",
                     ""action"": ""ReleaseTouch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -96,7 +140,29 @@ namespace Slider.Base
                     ""path"": ""<Touchscreen>/primaryTouch/press"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""MobileTouchcreen"",
+                    ""action"": ""HoldTouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""eaa378ce-45a7-4c9d-bc4a-4253692c21b5"",
+                    ""path"": ""<Pointer>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PC Standalone"",
+                    ""action"": ""HoldTouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ff5a0650-62a4-4c7b-95a6-10e9ca276ad7"",
+                    ""path"": ""<Touchscreen>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MobileTouchcreen"",
                     ""action"": ""HoldTouch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -104,7 +170,35 @@ namespace Slider.Base
             ]
         }
     ],
-    ""controlSchemes"": []
+    ""controlSchemes"": [
+        {
+            ""name"": ""MobileTouchcreen"",
+            ""bindingGroup"": ""MobileTouchcreen"",
+            ""devices"": [
+                {
+                    ""devicePath"": ""<Touchscreen>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""PC Standalone"",
+            ""bindingGroup"": ""PC Standalone"",
+            ""devices"": [
+                {
+                    ""devicePath"": ""<Keyboard>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                },
+                {
+                    ""devicePath"": ""<Mouse>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                }
+            ]
+        }
+    ]
 }");
             // PlayerInput
             m_PlayerInput = asset.FindActionMap("PlayerInput", throwIfNotFound: true);
@@ -205,6 +299,24 @@ namespace Slider.Base
             }
         }
         public PlayerInputActions @PlayerInput => new PlayerInputActions(this);
+        private int m_MobileTouchcreenSchemeIndex = -1;
+        public InputControlScheme MobileTouchcreenScheme
+        {
+            get
+            {
+                if (m_MobileTouchcreenSchemeIndex == -1) m_MobileTouchcreenSchemeIndex = asset.FindControlSchemeIndex("MobileTouchcreen");
+                return asset.controlSchemes[m_MobileTouchcreenSchemeIndex];
+            }
+        }
+        private int m_PCStandaloneSchemeIndex = -1;
+        public InputControlScheme PCStandaloneScheme
+        {
+            get
+            {
+                if (m_PCStandaloneSchemeIndex == -1) m_PCStandaloneSchemeIndex = asset.FindControlSchemeIndex("PC Standalone");
+                return asset.controlSchemes[m_PCStandaloneSchemeIndex];
+            }
+        }
         public interface IPlayerInputActions
         {
             void OnPressTouch(InputAction.CallbackContext context);

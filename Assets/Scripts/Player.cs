@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 using Slider.Base;
 
@@ -8,6 +7,8 @@ namespace Slider.Gameplay
     public class Player : MonoBehaviour
     {
         public ChangableValues settings;
+
+        public static Action OnGameOver;
 
         private Camera _cam;
         private Vector3 viewportPoint;
@@ -32,12 +33,16 @@ namespace Slider.Gameplay
 
         private void OnTriggerEnter(Collider other) => GameOver();
 
-        //TODO: Restart Menu
         private void GameOver()
         {
-            Destroy(this.gameObject);
+            OnGameOver?.Invoke();
+
+            Time.timeScale = 0.2f;
+            DestroyPlayer();
             Debug.Log("<color=yellow>[Player]</color> Its over, Anakin");
         }
+
+        private void DestroyPlayer() => Destroy(this.gameObject);
 
         [System.Serializable]
         public class ChangableValues

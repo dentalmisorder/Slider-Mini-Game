@@ -1,17 +1,22 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Slider.Base;
+using Slider.Gameplay;
 
-public class EnemyController : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
-    //NOTE: I feel bad for using singleton instead of observer pattern or something but its a Manager, so i guess its ok
-    public static EnemyController instance;
+    //NOTE: I feel bad for using singleton instead of observer pattern or something but its a Manager, so i guess its ok since its only 1 manager
+    public static GameManager instance;
+    public static uint score;
 
     public ChangableValues settings;
 
+    [Space]
     public PoolObjects enemiesPool;
+    public GameObject playerPfb;
 
+    private float _defFallSpeed;
+    private float _defSpawnRate;
     private float _timer = 0;
     private Camera _cam;
 
@@ -19,6 +24,9 @@ public class EnemyController : MonoBehaviour
     {
         instance = this;
         _cam = Camera.main;
+
+        _defFallSpeed = settings.fallSpeed;
+        _defSpawnRate = settings.spawnRate;
     }
 
     private void Start() => InvokeRepeating(nameof(IncreaseFallSpeed),0, settings.rateSpeedIncreasing);
@@ -41,10 +49,28 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    public void SpawnPlayer()
+    {
+        SetDefaultParams(); //Resetting default fall speed/spawn rate/etc.
+
+        Player player = playerPfb.GetComponent<Player>(); //To get the player height on the screen
+
+        Instantiate(playerPfb, _cam.ViewportToWorldPoint(new Vector3(0.5f, player.settings.playerHeight, _cam.nearClipPlane + 1f)), playerPfb.transform.rotation);
+    }
+
     private void IncreaseSpawnSpeed()
     {
         if(settings.spawnRate - settings.spawnRateDecrement > settings.minimumSpawnRate)
             settings.spawnRate -= settings.spawnRateDecrement;
+    }
+
+    private void SetDefaultParams()
+    {
+        settings.fallSpeed = _defFallSpeed;
+        settings.spawnRate = _defSpawnRate;
+
+        enemiesPool.ClearPool();
+        Time.timeScale = 1f;
     }
 
     private void IncreaseFallSpeed() => settings.fallSpeed += settings.valueSpeedIncreasing;
@@ -58,6 +84,8 @@ public class EnemyController : MonoBehaviour
         }
         yield break;
     }
+
+    #region SETTINGS CLASS
 
     [System.Serializable]
     public class ChangableValues
@@ -88,4 +116,6 @@ public class EnemyController : MonoBehaviour
         [Tooltip("Minimum delay between spawns (if spawnRateDecrement are not 0)")] 
         public float minimumSpawnRate = 0.5f;
     }
+
+    #endregion
 }

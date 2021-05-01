@@ -39,8 +39,10 @@ namespace Slider.Base
 
         public void Update()
         {
-            if(UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches.Count > 0)
-                OnTouchHold?.Invoke(UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches[0].screenPosition);
+            if(UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches.Count > 0 || UnityEngine.InputSystem.Mouse.current.press.isPressed)
+                OnTouchHold?.Invoke(playerInputs.PlayerInput.HoldTouch.ReadValue<Vector2>()); //works good for PC/Android/IOS at the same time
+
+                //OnTouchHold?.Invoke(UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches[0].screenPosition); //bruh only Android/IOS
         }
     }
 }

@@ -19,5 +19,7 @@ namespace Slider.Base
         public abstract void Spawn(Vector3 spawnPos, Quaternion rotation, System.Action<T> OnPooled);
 
         public abstract int GetPoolLength();
+
+        public abstract void ClearPool();
     }
 }

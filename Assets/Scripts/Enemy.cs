@@ -4,13 +4,9 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    private float _timer = 0f;
-    private float _rateSpeedIncreasing;
-    private float _valueSpeedIncreasing;
-
     private Camera _cam;
 
-    private EnemyController _controller;
+    private GameManager _controller;
     
     private Vector3 viewportPoint;
     
@@ -19,7 +15,7 @@ public class Enemy : MonoBehaviour
     private void OnEnable() 
     {
         if(!_controller)
-            _controller = EnemyController.instance;
+            _controller = GameManager.instance;
     }
 
     private void Update()
@@ -33,7 +29,12 @@ public class Enemy : MonoBehaviour
     {
         viewportPoint = _cam.WorldToViewportPoint(transform.position);
 
-        if(viewportPoint.y < 0)
+        if(viewportPoint.y < -0.3f)
+        {
             this.gameObject.SetActive(false);
+            IncreaseScore();
+        }
     }
+
+    private void IncreaseScore() => GameManager.score += 1;
 }
